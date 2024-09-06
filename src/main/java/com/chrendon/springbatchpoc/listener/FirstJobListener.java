@@ -13,6 +13,7 @@ public class FirstJobListener implements JobExecutionListener {
         log.debug("Before Job: {}", jobExecution.getJobInstance().getJobName());
         log.info("Job Params: {}", jobExecution.getJobParameters());
         log.info("Job Exec Context: {}", jobExecution.getExecutionContext());
+        jobExecution.getExecutionContext().put("jec","jec value");
     }
 
     @Override

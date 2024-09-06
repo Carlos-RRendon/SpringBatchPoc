@@ -1,6 +1,7 @@
 package com.chrendon.springbatchpoc.configuration;
 
 import com.chrendon.springbatchpoc.listener.FirstJobListener;
+import com.chrendon.springbatchpoc.listener.FirstStepListener;
 import com.chrendon.springbatchpoc.service.FirstTasklet;
 import com.chrendon.springbatchpoc.service.SecondTasklet;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class SampleJob {
     private final FirstTasklet firstTasklet;
     private final SecondTasklet secondTasklet;
     private final FirstJobListener firstJobListener;
+    private final FirstStepListener firstStepListener;
 
 
     @Bean
@@ -49,6 +51,7 @@ public class SampleJob {
     private Step firstStep(JobRepository jobRepository) {
         return new StepBuilder("firstStep", jobRepository)
                 .tasklet(firstTasklet, transactionManager())
+                .listener(firstStepListener)
                 .build();
     }
 

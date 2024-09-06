@@ -36,6 +36,7 @@ public class SampleJob {
     public Job firstJob(JobRepository jobRepository) {
         return new JobBuilder("firstJob", jobRepository)
                 .start(firstStep(jobRepository))
+                .next(secondStep(jobRepository))
                 .build();
 
     }
@@ -49,6 +50,19 @@ public class SampleJob {
     private Tasklet firstTask() {
         return (StepContribution contribution, ChunkContext chunkContext) -> {
             log.debug("This is the first tasklet step");
+            return RepeatStatus.FINISHED;
+        };
+    }
+
+    private Step secondStep(JobRepository jobRepository) {
+        return new StepBuilder("secondStep", jobRepository)
+                .tasklet(secondtTask(), transactionManager())
+                .build();
+    }
+
+    private Tasklet secondtTask() {
+        return (StepContribution contribution, ChunkContext chunkContext) -> {
+            log.debug("This is the second tasklet step");
             return RepeatStatus.FINISHED;
         };
     }

@@ -1,0 +1,13 @@
+name: batchPoc
+services:
+  mysql_database:
+    container_name: mysql_server
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./sql_directory/config:/etc/mysql/conf.d
+      - ./sql_directory/data:/var/lib/mysql
+

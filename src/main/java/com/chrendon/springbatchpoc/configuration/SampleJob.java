@@ -1,5 +1,6 @@
 package com.chrendon.springbatchpoc.configuration;
 
+import com.chrendon.springbatchpoc.service.SecondTasklet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -24,6 +25,7 @@ import javax.sql.DataSource;
 public class SampleJob {
 
     private final DataSource batchDataSource;
+    private final SecondTasklet secondTasklet;
 
 
     @Bean
@@ -56,15 +58,10 @@ public class SampleJob {
 
     private Step secondStep(JobRepository jobRepository) {
         return new StepBuilder("secondStep", jobRepository)
-                .tasklet(secondtTask(), transactionManager())
+                .tasklet(secondTasklet, transactionManager())
                 .build();
     }
 
-    private Tasklet secondtTask() {
-        return (StepContribution contribution, ChunkContext chunkContext) -> {
-            log.debug("This is the second tasklet step");
-            return RepeatStatus.FINISHED;
-        };
-    }
+
 
 }

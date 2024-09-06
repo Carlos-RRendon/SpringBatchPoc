@@ -7,13 +7,13 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
-public class SecondTasklet implements Tasklet {
+@Service
+public class FirstTasklet implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        log.debug("This is the second tasklet step");
+        log.debug("This is the first tasklet step");
         return RepeatStatus.FINISHED;
     }
 }

@@ -2,8 +2,11 @@ package com.chrendon.springbatchpoc.configuration;
 
 import com.chrendon.springbatchpoc.listener.FirstJobListener;
 import com.chrendon.springbatchpoc.listener.FirstStepListener;
+import com.chrendon.springbatchpoc.processor.FirstItemProcessor;
+import com.chrendon.springbatchpoc.reader.FirstItemReader;
 import com.chrendon.springbatchpoc.service.FirstTasklet;
 import com.chrendon.springbatchpoc.service.SecondTasklet;
+import com.chrendon.springbatchpoc.writter.FirstItemWritter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -30,14 +33,18 @@ public class SampleJob {
     private final FirstJobListener firstJobListener;
     private final FirstStepListener firstStepListener;
 
+    /**
+     * Chunk oriented step
+     */
+    private final FirstItemReader firstItemReader;
+    private final FirstItemProcessor firstItemProcessor;
+    private final FirstItemWritter firstItemWritter;
 
-    @Bean
-    public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(batchDataSource);
-    }
+    private final DataSourceTransactionManager transactionManager;
 
 
-    @Bean
+
+    //    @Bean
     public Job firstJob(JobRepository jobRepository) {
         return new JobBuilder("firstJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
@@ -45,12 +52,11 @@ public class SampleJob {
                 .next(secondStep(jobRepository))
                 .listener(firstJobListener)
                 .build();
-
     }
 
     private Step firstStep(JobRepository jobRepository) {
         return new StepBuilder("firstStep", jobRepository)
-                .tasklet(firstTasklet, transactionManager())
+                .tasklet(firstTasklet, transactionManager)
                 .listener(firstStepListener)
                 .build();
     }
@@ -58,9 +64,29 @@ public class SampleJob {
 
     private Step secondStep(JobRepository jobRepository) {
         return new StepBuilder("secondStep", jobRepository)
-                .tasklet(secondTasklet, transactionManager())
+                .tasklet(secondTasklet, transactionManager)
                 .build();
     }
+
+    @Bean
+    public Job secondJob(JobRepository jobRepository) {
+        return new JobBuilder("Second Job", jobRepository)
+                .incrementer(new RunIdIncrementer())
+                .start(firstChunkStep(jobRepository))
+                .next(secondStep(jobRepository))
+                .build();
+    }
+
+    private Step firstChunkStep(JobRepository jobRepository) {
+        return new StepBuilder("First Chunk Step", jobRepository)
+                .<Integer, Long>chunk(3, transactionManager)
+                .reader(firstItemReader)
+                .processor(firstItemProcessor)
+                .writer(firstItemWritter)
+                .build();
+    }
+
+
 
 
 }

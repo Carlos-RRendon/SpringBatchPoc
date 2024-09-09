@@ -14,6 +14,8 @@ public class FirstStepListener implements StepExecutionListener {
         log.debug("Before Step: {}", stepExecution.getStepName());
         log.debug("Before Job Exec Ctx: {}", stepExecution.getJobExecution().getExecutionContext());
         log.debug("Before Step Exec Ctx: {}", stepExecution.getExecutionContext());
+
+        stepExecution.getExecutionContext().put("sec","sec value");
     }
 
     @Override

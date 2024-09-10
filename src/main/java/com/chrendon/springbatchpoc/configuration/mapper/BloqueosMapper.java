@@ -1,3 +1,4 @@
+/*
 package com.chrendon.springbatchpoc.configuration.mapper;
 
 import com.chrendon.springbatchpoc.model.BloqueoCsv;
@@ -12,8 +13,9 @@ public class BloqueosMapper implements FieldSetMapper<BloqueoCsv> {
                 .entityCode(fieldSet.readString(0))
                 .blackListType(fieldSet.readString(1))
                 .blackListValue(fieldSet.readString(2))
-                .lastModified(fieldSet.readDate(0))
-                .lastUpdated(fieldSet.readDate(1))
+                .lastModified(fieldSet.readString(0))
+                .lastUpdated(fieldSet.readString(1))
                 .build();
     }
 }
+*/

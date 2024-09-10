@@ -12,6 +12,7 @@ public class BloqueoCsv {
     private String entityCode;
     private String blackListType;
     private String blackListValue;
-    private String  lastModified;
-    private String  lastUpdated;
+    private String lastModified;
+    private String lastUpdated;
+
 }

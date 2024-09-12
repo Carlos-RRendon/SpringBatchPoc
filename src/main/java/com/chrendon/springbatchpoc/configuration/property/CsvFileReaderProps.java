@@ -4,17 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 
 import java.util.List;
 
 @Configuration
-@ConfigurationProperties("csv")
+@ConfigurationProperties("config.csv-processor.reader")
 @Getter
 @Setter
 public class CsvFileReaderProps {
-    private Resource filePath;
-    private String defaultLineDelimiter;
+    private UrlResource uri;
+    private String lineDelimiter;
     private List<String> columnNames;
     private int skipLines;
 }

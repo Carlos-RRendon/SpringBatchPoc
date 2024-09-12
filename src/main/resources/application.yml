@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: SpringBatchPoc
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_batch
+    username: root
+    password: root
+
+#  batch:
+#    jdbc:
+#      initialize-schema: always
+#    job:
+#      enabled: false
+
+logging:
+  level:
+    com.chrendon: DEBUG
+
+config:
+  sftp-connection:
+    host: ftp://localhost:2222
+    user: ftpuser
+    keystore:
+  csv-processor:
+    chunk-size: 5
+    reader:
+      uri: ftp:///localhost:2222//cat_bloqueo_tel_email_lista_negra
+      line-delimiter: |
+      column-names: entityCode,blackListType,blackListValue,lastModified,lastUpdated
+      skip-lines: 1

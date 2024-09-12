@@ -8,22 +8,25 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Service
+@Configuration
 @Slf4j
 @RequiredArgsConstructor
 public class BloqueoItemReader {
 
     private final CsvFileReaderProps fileReaderProps;
 
+    @Bean
     public FlatFileItemReader<BloqueoCsv> flatFileItemReader() {
         FlatFileItemReader<BloqueoCsv> flatFileItemReader = new FlatFileItemReader<>();
 
-        flatFileItemReader.setResource(fileReaderProps.getFilePath());
+        flatFileItemReader.setResource(fileReaderProps.getUri());
         DefaultLineMapper<BloqueoCsv> lineMapper = new DefaultLineMapper<>();
 
-        DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer(fileReaderProps.getDefaultLineDelimiter());
+        DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
+        tokenizer.setDelimiter(fileReaderProps.getLineDelimiter());
         tokenizer.setNames(fileReaderProps.getColumnNames().toArray(new String[0]));
 
         lineMapper.setLineTokenizer(tokenizer);

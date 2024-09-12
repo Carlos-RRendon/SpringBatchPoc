@@ -8,6 +8,23 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./sql_directory/config:/etc/mysql/conf.d
       - ./sql_directory/data:/var/lib/mysql
+
+  sftp_server:
+    container_name: sftp_container
+    build:
+      dockerfile: sftp.Dockerfile
+      context: .
+    ports:
+      - 2222:22
+    volumes:
+      - ./sftp_files:/home/sftpuser/sftp/upload
+
+  mongo_database:
+    container_name: mongodb
+    image: mongodb/mongodb-community-server
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_directory/data:/data/db
 

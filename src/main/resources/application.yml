@@ -26,7 +26,7 @@ config:
   csv-processor:
     chunk-size: 5
     reader:
-      uri: ftp:///localhost:2222//cat_bloqueo_tel_email_lista_negra
-      line-delimiter: |
+      uri: file:F:\Proyectos\Contactabilidad\SpringBatchPoc\sftp_files\cat_bloqueo_tel_email_lista_negra.csv
+      line-delimiter: "|"
       column-names: entityCode,blackListType,blackListValue,lastModified,lastUpdated
       skip-lines: 1

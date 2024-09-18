@@ -6,16 +6,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
-import java.util.List;
-
 @Configuration
-@ConfigurationProperties("config.csv-processor.reader")
 @Getter
 @Setter
-public class CsvFileReaderProps {
-    private String path;
-    private Resource uri;
-    private String lineDelimiter;
-    private List<String> columnNames;
-    private int skipLines;
+@ConfigurationProperties("config.sftp-connection")
+public class SftpConnectionProps {
+
+    private String host;
+    private int port;
+    private String user;
+    private String remotePath;
+    private Resource privateKey;
+    private String passphrase;
 }

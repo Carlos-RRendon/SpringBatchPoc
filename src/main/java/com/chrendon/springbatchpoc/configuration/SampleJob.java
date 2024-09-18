@@ -30,6 +30,7 @@ public class SampleJob {
 //    private final DataSourceTransactionManager transactionManager;
 
 
+
     @Bean
     public Step secondStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("secondStep", jobRepository)

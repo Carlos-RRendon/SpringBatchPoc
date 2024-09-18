@@ -16,7 +16,7 @@ services:
       dockerfile: sftp.Dockerfile
       context: .
     ports:
-      - 2222:22
+      - "2222:22"
     volumes:
       - ./sftp_files:/home/sftpuser/sftp/upload
 

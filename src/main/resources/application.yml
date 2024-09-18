@@ -20,13 +20,17 @@ logging:
 
 config:
   sftp-connection:
-    host: ftp://localhost:2222
+    host: "localhost"
+    port: 2222
     user: ftpuser
-    keystore:
+    private-key:  "id_rsa"
+    pass-phrase: ""
+    remote-path: /upload
   csv-processor:
     chunk-size: 5
     reader:
       uri: file:F:\Proyectos\Contactabilidad\SpringBatchPoc\sftp_files\cat_bloqueo_tel_email_lista_negra.csv
+      path: cat_bloqueo_tel_email_lista_negra.csv
       line-delimiter: "|"
       column-names: entityCode,blackListType,blackListValue,lastModified,lastUpdated
       skip-lines: 1

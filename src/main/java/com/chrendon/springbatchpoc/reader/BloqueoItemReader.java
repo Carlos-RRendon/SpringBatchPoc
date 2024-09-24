@@ -26,6 +26,7 @@ public class BloqueoItemReader {
                 .delimiter(fileReaderProps.getLineDelimiter())
                 .names(fileReaderProps.getColumnNames().toArray(new String[0]))
                 .targetType(BloqueoCsv.class)
+                .linesToSkip(fileReaderProps.getSkipLines())
                 .build();
 
 

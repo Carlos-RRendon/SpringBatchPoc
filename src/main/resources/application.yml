@@ -20,9 +20,9 @@ logging:
 
 config:
   sftp-connection:
-    host: "localhost"
+    host: localhost
     port: 2222
-    user: ftpuser
+    user: sftpuser
     private-key:  "id_rsa"
     pass-phrase: ""
     remote-path: /upload

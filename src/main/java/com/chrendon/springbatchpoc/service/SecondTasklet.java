@@ -22,13 +22,13 @@ public class SecondTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("This is the second tasklet step");
 
-        sftpRemoteFileTemplate.execute(session -> {
+ /*       sftpRemoteFileTemplate.execute(session -> {
 
             if (session.exists(csvFileReaderProps.getPath())) {
                 log.debug("The file {} already exists", csvFileReaderProps.getPath());
             }
             return null;
-        });
+        });*/
 
         log.debug("Second step context: {}", chunkContext.getStepContext().getJobExecutionContext());
         return RepeatStatus.FINISHED;

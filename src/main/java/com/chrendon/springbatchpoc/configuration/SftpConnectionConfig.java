@@ -69,7 +69,7 @@ public class SftpConnectionConfig {
 
     @Bean
     public SftpRemoteFileTemplate sftpRemoteFileTemplate() {
-        return new SftpRemoteFileTemplate(defaultSftpClientFactory());
+        return new SftpRemoteFileTemplate(cachingSessionFactory());
     }
 
     @ServiceActivator(inputChannel = "data", adviceChain = "after")
